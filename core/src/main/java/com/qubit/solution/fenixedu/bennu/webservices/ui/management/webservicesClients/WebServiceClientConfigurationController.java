@@ -136,12 +136,12 @@ public class WebServiceClientConfigurationController extends WebservicesBaseCont
                     value = "clientusername", required = false) java.lang.String clientUsername, @RequestParam(
                     value = "clientpassword", required = false) java.lang.String clientPassword, Model model) {
 
-        if (url != null && url.length() > 0 && url.startsWith("http:") && sslActive) {
-            url = url.replace("http:", "https:");
-        }
-        if (url != null && url.length() > 0 && url.startsWith("https:") && !sslActive) {
-            url = url.replace("https:", "http:");
-        }
+//        if (url != null && url.length() > 0 && url.startsWith("http:") && sslActive) {
+//            url = url.replace("http:", "https:");
+//        }
+//        if (url != null && url.length() > 0 && url.startsWith("https:") && !sslActive) {
+//            url = url.replace("https:", "http:");
+//        }
 
         setWebServiceClientConfiguration(webServiceClientConfiguration, model);
         updateWebServiceClientConfiguration(authenticationLevel, url, sslActive, domainKeyStore, aliasForSSLCerficate,
