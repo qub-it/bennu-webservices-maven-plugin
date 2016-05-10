@@ -27,10 +27,14 @@
 
 package com.qubit.solution.fenixedu.bennu.webservices.domain.webservice;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.fenixedu.bennu.core.domain.Bennu;
+import org.fenixedu.bennu.core.util.CoreConfiguration;
+import org.fenixedu.commons.configuration.ConfigurationInvocationHandler;
 
 import com.qubit.solution.fenixedu.bennu.webservices.services.client.BennuWebServiceClient;
 
@@ -43,6 +47,13 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
     public WebServiceClientConfiguration(String implementationClass) {
         this();
         setImplementationClass(implementationClass);
+        setExecutionContext(WebServiceExecutionContext.PRODUCTION);
+    }
+
+    public WebServiceClientConfiguration(String implementationClass, final WebServiceExecutionContext executionContext) {
+        this();
+        setImplementationClass(implementationClass);
+        setExecutionContext(executionContext);
     }
 
     public boolean isSecured() {
@@ -54,6 +65,11 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
     }
 
     public <T extends BennuWebServiceClient> T getClient() {
+        if ((getExecutionContext() == null || getExecutionContext() == WebServiceExecutionContext.PRODUCTION)
+                && (CoreConfiguration.getConfiguration().developmentMode() || isQualityMode())) {
+            throw new RuntimeException("Cannot execute webservice: not in production environment");
+        }
+
         try {
             Class<? extends BennuWebServiceClient> clazz =
                     (Class<? extends BennuWebServiceClient>) Class.forName(getImplementationClass());
@@ -63,6 +79,16 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
             e.printStackTrace();
         }
         return null;
+    }
+
+    private boolean isQualityMode() {
+        try {
+            final Properties properties = new Properties();
+            properties.load(this.getClass().getResourceAsStream("/resources/configuration.properties"));
+            return Boolean.valueOf(properties.getProperty("quality.mode", "true"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Collection<WebServiceClientConfiguration> readAll() {

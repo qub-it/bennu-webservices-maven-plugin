@@ -27,6 +27,7 @@
 package com.qubit.solution.fenixedu.bennu.webservices.domain;
 
 enum com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceAuthenticationLevel as WebServiceAuthenticationLevel;
+enum com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceExecutionContext as WebServiceExecutionContext;
 
 external class .org.fenixedu.bennu.io.domain.GenericFile;
 
@@ -51,6 +52,7 @@ class webservice.WebServiceClientConfiguration extends webservice.WebServiceConf
 	String aliasForCerficate;
 	String clientUsername;
 	String clientPassword;
+	WebServiceExecutionContext executionContext;
 }
 
 class webservice.WebServiceServerConfiguration extends webservice.WebServiceConfiguration {

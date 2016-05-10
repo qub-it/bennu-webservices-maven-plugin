@@ -1,10 +1,10 @@
 <%-- 
  * This file was created by Quorum Born IT <http://www.qub-it.com/> and its 
  * copyright terms are bind to the legal agreement regulating the FenixEdu@ULisboa 
- * software development project between Quorum Born IT and Serviços Partilhados da
+ * software development project between Quorum Born IT and Serviï¿½os Partilhados da
  * Universidade de Lisboa:
- *  - Copyright © 2015 Quorum Born IT (until any Go-Live phase)
- *  - Copyright © 2015 Universidade de Lisboa (after any Go-Live phase)
+ *  - Copyright ï¿½ 2015 Quorum Born IT (until any Go-Live phase)
+ *  - Copyright ï¿½ 2015 Universidade de Lisboa (after any Go-Live phase)
  *
  * Contributors: paulo.abrantes@qub-it.com
  *
@@ -92,6 +92,22 @@ ${portal.toolkit()}
 <form method="post" class="form-horizontal">
 <div class="panel panel-default">
   <div class="panel-body">
+
+
+<div class="form-group row">
+<div class="col-sm-2 control-label"><spring:message code="label.WebServiceClientConfiguration.executionContext"/></div> 
+
+<div class="col-sm-2">
+<select id="webServiceClientConfiguration_executionContext" name="executioncontext" class="form-control">
+		<c:forEach items="${executionContextValues}" var="field">
+				<option value='<c:out value='${field}'/>'><c:out value='${field}' /></option>
+	   </c:forEach>
+</select>
+	<script>
+		$("#webServiceClientConfiguration_executionContext").val('<c:out value='${not empty param.executioncontext ? param.executioncontext : webServiceClientConfiguration.executionContext }'/>');
+	</script>	
+</div>
+</div>
 
 <div class="form-group row">
 <div class="col-sm-2 control-label"><spring:message code="label.WebServiceClientConfiguration.authenticationLevel"/></div> 

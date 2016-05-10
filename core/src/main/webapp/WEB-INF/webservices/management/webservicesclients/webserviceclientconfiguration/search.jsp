@@ -1,10 +1,10 @@
 <%-- 
  * This file was created by Quorum Born IT <http://www.qub-it.com/> and its 
  * copyright terms are bind to the legal agreement regulating the FenixEdu@ULisboa 
- * software development project between Quorum Born IT and Serviços Partilhados da
+ * software development project between Quorum Born IT and Serviï¿½os Partilhados da
  * Universidade de Lisboa:
- *  - Copyright © 2015 Quorum Born IT (until any Go-Live phase)
- *  - Copyright © 2015 Universidade de Lisboa (after any Go-Live phase)
+ *  - Copyright ï¿½ 2015 Quorum Born IT (until any Go-Live phase)
+ *  - Copyright ï¿½ 2015 Universidade de Lisboa (after any Go-Live phase)
  *
  * Contributors: paulo.abrantes@qub-it.com
  *
@@ -153,6 +153,7 @@ ${portal.toolkit()}
 					<%--!!!  Field names here --%>
 <th><spring:message code="label.WebServiceClientConfiguration.implementationClass"/></th>
 <th><spring:message code="label.WebServiceClientConfiguration.secured"/></th>
+<th><spring:message code="label.WebServiceClientConfiguration.executionContext"/></th>
 <th><spring:message code="label.WebServiceClientConfiguration.url"/></th>
 <%-- Operations Column --%>
 					<th></th>
@@ -181,6 +182,7 @@ ${portal.toolkit()}
 				"DT_RowId" : '<c:out value='${searchResult.externalId}'/>',
 "implementationclass" : "<c:out value='${searchResult.implementationClass}'/>",
 "secured" : "<c:if test="${searchResult.secured}"><spring:message code="label.true" /></c:if><c:if test="${not searchResult.secured}"><spring:message code="label.false" /></c:if>",
+"executionContext": "${searchResult.executionContext}",
 "url" : "<c:out value='${searchResult.url}'/>",
 "actions" :
 " <a  class=\"btn btn-default btn-xs\" href=\"${pageContext.request.contextPath}/webservices/management/webservicesclients/webserviceclientconfiguration/search/update/${searchResult.externalId}\"><spring:message code='label.management.webservicesClients.searchWebServiceClientConfiguration.update'/></a>" +
@@ -199,6 +201,7 @@ ${portal.toolkit()}
 		"columns": [
 			{ data: 'implementationclass' },
 			{ data: 'secured' },
+			{ data: 'executionContext' },
 			{ data: 'url' },
 			{ data: 'actions' }
 			

@@ -46,6 +46,7 @@ import pt.ist.fenixframework.Atomic.TxMode;
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceAuthenticationLevel;
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceClientConfiguration;
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceConfiguration;
+import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceExecutionContext;
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceServerConfiguration;
 import com.qubit.solution.fenixedu.bennu.webservices.services.client.BennuWebServiceClient;
 import com.qubit.solution.fenixedu.bennu.webservices.services.server.BennuWebService;
@@ -124,6 +125,10 @@ public class BennuWebservicesInitializer implements ServletContextListener {
         }
         if (readByImplementationClass.getAuthenticationLevel() == WebServiceAuthenticationLevel.PASSWORD) {
             readByImplementationClass.setAuthenticationLevel(WebServiceAuthenticationLevel.WS_SECURITY);
+        }
+        
+        if(readByImplementationClass.getExecutionContext() == null) {
+            readByImplementationClass.setExecutionContext(WebServiceExecutionContext.PRODUCTION);
         }
     }
 
