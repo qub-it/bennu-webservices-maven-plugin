@@ -65,11 +65,11 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
     }
 
     public <T extends BennuWebServiceClient> T getClient() {
-        if ((getExecutionContext() == null || getExecutionContext() == WebServiceExecutionContext.PRODUCTION)
-                && (CoreConfiguration.getConfiguration().developmentMode() || isQualityMode())) {
+        if((getExecutionContext() == null || getExecutionContext() == WebServiceExecutionContext.PRODUCTION) && 
+                    (CoreConfiguration.getConfiguration().developmentMode() || isQualityMode())) {
             throw new RuntimeException("Cannot execute webservice: not in production environment");
         }
-
+        
         try {
             Class<? extends BennuWebServiceClient> clazz =
                     (Class<? extends BennuWebServiceClient>) Class.forName(getImplementationClass());
@@ -84,7 +84,7 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
     private boolean isQualityMode() {
         try {
             final Properties properties = new Properties();
-            properties.load(this.getClass().getResourceAsStream("/resources/configuration.properties"));
+            properties.load(this.getClass().getResourceAsStream("/configuration.properties"));
             return Boolean.valueOf(properties.getProperty("quality.mode", "true"));
         } catch (IOException e) {
             throw new RuntimeException(e);
