@@ -65,8 +65,7 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
     }
 
     public <T extends BennuWebServiceClient> T getClient() {
-        if((getExecutionContext() == null || getExecutionContext() == WebServiceExecutionContext.PRODUCTION) && 
-                    (CoreConfiguration.getConfiguration().developmentMode() || isQualityMode())) {
+        if(isProductionContext() && isDevelopmentMode()) {
             throw new RuntimeException("Cannot execute webservice: not in production environment");
         }
         
@@ -80,7 +79,15 @@ public class WebServiceClientConfiguration extends WebServiceClientConfiguration
         }
         return null;
     }
+    
+    public boolean isProductionContext() {
+        return getExecutionContext() == null || getExecutionContext() == WebServiceExecutionContext.PRODUCTION;
+    }
 
+    public boolean isDevelopmentMode() {
+        return CoreConfiguration.getConfiguration().developmentMode() || isQualityMode();
+    }
+    
     private boolean isQualityMode() {
         try {
             final Properties properties = new Properties();

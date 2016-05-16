@@ -36,12 +36,14 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 
+import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ist.fenixframework.Atomic;
 
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceClientConfiguration;
+import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceExecutionContext;
 import com.qubit.solution.fenixedu.bennu.webservices.tools.keystore.KeyStoreWorker;
 import com.sun.xml.ws.developer.JAXWSProperties;
 
@@ -93,6 +95,11 @@ public abstract class BennuWebServiceClient<T> {
     }
 
     public T getClient() {
+        final WebServiceClientConfiguration webServiceClientConfiguration = getWebServiceClientConfiguration();
+        if(webServiceClientConfiguration.isProductionContext() && webServiceClientConfiguration.isDevelopmentMode()) {
+            throw new RuntimeException("Cannot execute webservice: not in production environment");
+        }
+        
         BindingProvider port = getService();
         setupClient(port);
         return (T) port;
