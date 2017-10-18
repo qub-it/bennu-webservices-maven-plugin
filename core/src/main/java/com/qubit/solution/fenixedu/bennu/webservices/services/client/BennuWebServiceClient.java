@@ -36,16 +36,14 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
 
-import org.fenixedu.bennu.core.util.CoreConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pt.ist.fenixframework.Atomic;
-
 import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceClientConfiguration;
-import com.qubit.solution.fenixedu.bennu.webservices.domain.webservice.WebServiceExecutionContext;
 import com.qubit.solution.fenixedu.bennu.webservices.tools.keystore.KeyStoreWorker;
 import com.sun.xml.ws.developer.JAXWSProperties;
+
+import pt.ist.fenixframework.Atomic;
 
 public abstract class BennuWebServiceClient<T> {
 
@@ -96,10 +94,10 @@ public abstract class BennuWebServiceClient<T> {
 
     public T getClient() {
         final WebServiceClientConfiguration webServiceClientConfiguration = getWebServiceClientConfiguration();
-        if(webServiceClientConfiguration.isProductionContext() && webServiceClientConfiguration.isDevelopmentMode()) {
+        if (webServiceClientConfiguration.isProductionContext() && webServiceClientConfiguration.isDevelopmentMode()) {
             throw new RuntimeException("Cannot execute webservice: not in production environment");
         }
-        
+
         BindingProvider port = getService();
         setupClient(port);
         return (T) port;
@@ -108,29 +106,26 @@ public abstract class BennuWebServiceClient<T> {
     protected abstract BindingProvider getService();
 
     protected void setupClient(BindingProvider bindingProvider) {
-        WebServiceClientConfiguration webServiceClientConfiguration = getWebServiceClientConfiguration();
-        String url = webServiceClientConfiguration.getUrl();
+        WebServiceClientConfiguration configuration = getWebServiceClientConfiguration();
+        String url = configuration.getUrl();
 
         if (url != null && url.length() > 0) {
             bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         }
-        if (webServiceClientConfiguration.isSSLActive()) {
+        if (configuration.isSSLActive()) {
             setSSLConnection(bindingProvider);
         }
 
-        if (webServiceClientConfiguration.isSecured()) {
-            if (webServiceClientConfiguration.isUsingWSSecurity()) {
-                if (webServiceClientConfiguration.getDomainKeyStore() != null) {
-                    List<Handler> handlerList = bindingProvider.getBinding().getHandlerChain();
-                    if (handlerList == null) {
-                        handlerList = new ArrayList<Handler>();
-                    }
-                    handlerList.add(new WebServiceClientHandler(webServiceClientConfiguration, this.username, this.password));
-                    bindingProvider.getBinding().setHandlerChain(handlerList);
-                } else {
-                    throw new IllegalStateException(
-                            "Security was activated to webservice client but no keystore was defined! Fix that in the configuration interface");
+        if (configuration.isSecured()) {
+            
+            if (configuration.isUsingWSSecurity()) {
+                List<Handler> handlerList = bindingProvider.getBinding().getHandlerChain();
+                if (handlerList == null) {
+                    handlerList = new ArrayList<Handler>();
                 }
+                handlerList.add(new WSSecurityClientHandler(this.username, this.password));
+                bindingProvider.getBinding().setHandlerChain(handlerList);
+
             } else {
                 bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, this.username);
                 bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, this.password);
@@ -169,7 +164,7 @@ public abstract class BennuWebServiceClient<T> {
             throw new RuntimeException("Problems creating sslContext", e);
         }
     }
-    
+
     protected String getSSLVersion() {
         return "TLSv1.2";
     }
