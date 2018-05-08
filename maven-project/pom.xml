@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>com.qubit.solution.fenixedu</groupId>
 		<artifactId>bennu-webservices</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 
 	<groupId>com.qubit.solution.fenixedu</groupId>
 	<artifactId>bennu-webservices-project</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>Bennu webservices project</name>
