@@ -115,12 +115,22 @@ public class SunJaxWSMerger extends AbstractMojo {
                         Node cloneNode = list.item(i).cloneNode(true);
                         resultDocument.adoptNode(cloneNode);
                         rootElement.appendChild(cloneNode);
-
-                        Element handlerChains = resultDocument.createElement("handler-chains");
-                        cloneNode.appendChild(handlerChains);
-                        handlerChains.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
-                        Element handlerChain = resultDocument.createElement("handler-chain");
-                        handlerChains.appendChild(handlerChain);
+                        
+                        if(findChildElement(cloneNode, "handler-chains") == null) {
+                            Element handlerChains = resultDocument.createElement("handler-chains");
+                            cloneNode.appendChild(handlerChains);
+                            handlerChains.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
+                        }
+                        
+                        Element handlerChains = findChildElement(cloneNode, "handler-chains");
+                        
+                        if(findChildElement(handlerChains, "handler-chain") == null) {
+                            Element handlerChain = resultDocument.createElement("handler-chain");
+                            handlerChains.appendChild(handlerChain);
+                        }
+                        
+                        Element handlerChain = findChildElement(handlerChains, "handler-chain");
+                        
                         Element handler = resultDocument.createElement("handler");
                         handlerChain.appendChild(handler);
                         Element handlerName = resultDocument.createElement("handler-name");
@@ -161,4 +171,19 @@ public class SunJaxWSMerger extends AbstractMojo {
         }
 
     }
+
+    private Element findChildElement(final Node node, final String elementName) {
+        final NodeList list = node.getChildNodes();
+        
+        for (int i = 0; i < list.getLength(); i++) {
+            Node child = list.item(i);
+            
+            if(elementName.equals(child.getNodeName())) {
+                return (Element) child;
+            }
+        }
+        
+        return null;
+    }
+    
 }
