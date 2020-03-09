@@ -1,56 +1,78 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.qubit.solution.fenixedu</groupId>
-		<artifactId>qub-fenixedu-project</artifactId>
-		<version>1.0.0</version>
-	</parent>
-
 	<groupId>com.qubit.solution.fenixedu</groupId>
-	<artifactId>bennu-webservices</artifactId>
-	<version>2.0.2</version>
-	<packaging>pom</packaging>
+	<artifactId>bennu-webservices-plugin</artifactId>
+	<version>2.0.2-rc-jdk11</version>
+	<packaging>maven-plugin</packaging>
 
-	<name>Bennu webservices</name>
+	<name>Bennu webservices sun-jaxws merger</name>
 
 	<properties>
+		<java.compilation.release>11</java.compilation.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- Plugins versions -->
+		<version.org.apache.maven.plugins.maven.compiler.plugin>3.8.0</version.org.apache.maven.plugins.maven.compiler.plugin>
 	</properties>
 
-	<modules>
-		<module>core</module>
-		<module>maven-plugin</module>
-		<module>maven-project</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-core</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
-	<distributionManagement>
-		<repository>
-			<id>ulisboa-repo</id>
-			<url>https://nexjen.ulisboa.pt/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>ulisboa-repo</id>
-			<url>https://nexjen.ulisboa.pt/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.6.0</version>
+				<executions>
+					<execution>
+						<id>default-descriptor</id>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.org.apache.maven.plugins.maven.compiler.plugin}</version>
+				<configuration>
+					<release>${java.compilation.release}</release>
+					<maxmem>2048</maxmem>
+					<meminitial>1024</meminitial>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>ulisboa-repo</id>
-			<url>https://nexjen.ulisboa.pt/nexus/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
-	<repositories>
-		<repository>
-			<id>ulisboa-repo</id>
-			<url>https://nexjen.ulisboa.pt/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>fenixedu-maven-repository</id>
-			<url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
-		</repository>
-	</repositories>
 </project>
