@@ -5,7 +5,7 @@
 
 	<groupId>com.qubit.solution.fenixedu</groupId>
 	<artifactId>bennu-webservices-plugin</artifactId>
-	<version>2.0.2-rc-jdk11</version>
+	<version>2.0.2</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Bennu webservices sun-jaxws merger</name>
@@ -73,6 +73,17 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>ulisboa-repo</id>
+			<url>https://nexjen.ulisboa.pt/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ulisboa-repo</id>
+			<url>https://nexjen.ulisboa.pt/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 </project>
