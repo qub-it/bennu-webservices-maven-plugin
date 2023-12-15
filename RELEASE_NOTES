@@ -1,2 +1,4 @@
+- Improvement: Upgrades maven-plugin-plugin to 3.10.2 [#qubIT-Omnis-4751]
+
 2.1.0 (09-03-2020)
 - Support for Java11
