@@ -1,3 +1,4 @@
+- Refactor: Migrate from javaee to jakarta [#qubIT-Omnis-10960]
 - Improvement: Upgrades maven-plugin-plugin to 3.10.2 [#qubIT-Omnis-4751]
 
 2.1.0 (09-03-2020)

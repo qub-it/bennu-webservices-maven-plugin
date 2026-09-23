@@ -123,7 +123,7 @@ public class SunJaxWSMerger extends AbstractMojo {
                         if (findChildElement(cloneNode, "handler-chains") == null) {
                             Element handlerChains = resultDocument.createElement("handler-chains");
                             cloneNode.appendChild(handlerChains);
-                            handlerChains.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
+                            handlerChains.setAttribute("xmlns", "https://jakarta.ee/xml/ns/jakartaee");
                         }
 
                         Element handlerChains = findChildElement(cloneNode, "handler-chains");
