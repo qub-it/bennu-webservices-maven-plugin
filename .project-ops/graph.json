@@ -1,0 +1,93 @@
+{
+  "workspace": "/home/omnis-dev/development/workspaces/migration/bennu-webservices-maven-plugin",
+  "modules": [
+    {
+      "folder": "/home/omnis-dev/development/workspaces/migration/bennu-webservices-maven-plugin",
+      "groupId": "com.qubit.solution.fenixedu",
+      "artifactId": "bennu-webservices-plugin",
+      "version": "2.1.0",
+      "packaging": "maven-plugin",
+      "parent": null,
+      "dmImports": [],
+      "git": {
+        "isRepo": true,
+        "head": "7584b9f44bf6c049435adfe153cfc09298f8b2a2",
+        "branch": "master",
+        "dirty": false
+      },
+      "externalDeps": [
+        "org.apache.maven.plugin-tools:maven-plugin-annotations",
+        "org.apache.maven:maven-core",
+        "org.apache.maven:maven-plugin-api"
+      ]
+    }
+  ],
+  "modules_by_aid": {
+    "bennu-webservices-plugin": {
+      "folder": "/home/omnis-dev/development/workspaces/migration/bennu-webservices-maven-plugin",
+      "groupId": "com.qubit.solution.fenixedu",
+      "artifactId": "bennu-webservices-plugin",
+      "version": "2.1.0",
+      "packaging": "maven-plugin",
+      "parent": null,
+      "dmImports": [],
+      "git": {
+        "isRepo": true,
+        "head": "7584b9f44bf6c049435adfe153cfc09298f8b2a2",
+        "branch": "master",
+        "dirty": false
+      },
+      "externalDeps": [
+        "org.apache.maven.plugin-tools:maven-plugin-annotations",
+        "org.apache.maven:maven-core",
+        "org.apache.maven:maven-plugin-api"
+      ]
+    }
+  },
+  "dependencies": {
+    "bennu-webservices-plugin": []
+  },
+  "reverseDependencies": {
+    "bennu-webservices-plugin": []
+  },
+  "missingInWorkspace": [
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-plugin-api"
+    },
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-core"
+    },
+    {
+      "groupId": "org.apache.maven.plugin-tools",
+      "artifactId": "maven-plugin-annotations"
+    }
+  ],
+  "missingInternal": [],
+  "missingExternal": [
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-plugin-api"
+    },
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-core"
+    },
+    {
+      "groupId": "org.apache.maven.plugin-tools",
+      "artifactId": "maven-plugin-annotations"
+    }
+  ],
+  "missingParents": [],
+  "missingBoms": [],
+  "externalParents": [],
+  "internalPrefixes": [
+    "com.qubit"
+  ],
+  "orderByLayers": [
+    [
+      "bennu-webservices-plugin"
+    ]
+  ]
+}
